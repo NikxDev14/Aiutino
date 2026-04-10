@@ -11,6 +11,8 @@ public class HomeFrame extends BorderPane {
         this.getStyleClass().add("contenitore-principale");
 
         //Aggiungere header e body creati
+        setTop(creaHeader());
+        setCenter(creaBody());
     }
 
     //Crea la barra in cima al programma

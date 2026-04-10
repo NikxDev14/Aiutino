@@ -9,8 +9,16 @@ public class Main extends Application{
     public void start(Stage mainStage){
         HomeFrame home = new HomeFrame();
         Scene scena = new Scene(home, 1000, 700);
-    }
-    static void main() {
 
+        // Caricamento del CSS
+        String css = getClass().getResource("/style.css").toExternalForm();
+        scena.getStylesheets().add(css);
+
+        mainStage.setTitle("Aiutino?");
+        mainStage.setScene(scena);
+        mainStage.show();
+    }
+    public static void main(String[] args) {
+        launch(args);
     }
 }
