@@ -1,0 +1,18 @@
+/* L'header blu */
+.header{
+    -fx-background-color: #4a90e2;
+    -fx-padding: 10 20;
+    -fx-alignment: center;
+}
+
+/* I bottoni arrotondati nell'header */
+.btnFiltro, btnProfilo {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-text-fill: #4a90e2;
+}
+
+.body-scroll {
+    -fx-background-color: transparent;
+    -fx-padding: 0 50 0 50; /* Sopra, Destra, Sotto, Sinistra */
+}
