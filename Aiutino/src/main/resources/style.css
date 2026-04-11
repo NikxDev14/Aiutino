@@ -1,18 +1,40 @@
-/* L'header blu */
-.header{
+/* Font */
+.root {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* Header */
+.header {
     -fx-background-color: #4a90e2;
-    -fx-padding: 10 20;
-    -fx-alignment: center;
+    -fx-padding: 15 30;
+    -fx-alignment: CENTER_LEFT;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);
 }
 
-/* I bottoni arrotondati nell'header */
-.btnFiltro, btnProfilo {
-    -fx-background-color: #ffffff;
-    -fx-background-radius: 10;
-    -fx-text-fill: #4a90e2;
-}
+.titolo {
+     -fx-text-fill: white;
+     -fx-font-size: 24px;
+     -fx-font-weight: bold;
+ }
 
+/* Sfondo del body */
 .body-scroll {
+    -fx-background: linear-gradient(to bottom right, #34495e, #2c3e50); /* Da sistemare */
     -fx-background-color: transparent;
-    -fx-padding: 0 50 0 50; /* Sopra, Destra, Sotto, Sinistra */
+}
+
+/* Bottoni dell'Header */
+.btnFiltro, .btnProfilo {
+    -fx-background-color: rgba(255, 255, 255, 0.2); /* Trasparenza bianca come mockup */
+    -fx-text-fill: white;
+    -fx-background-radius: 12;
+    -fx-padding: 8 18;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-border-color: rgba(255, 255, 255, 0.4);
+    -fx-border-radius: 12;
+}
+
+.btnFiltro:hover, .btnProfilo:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
 }
