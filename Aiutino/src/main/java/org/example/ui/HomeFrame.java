@@ -28,11 +28,17 @@ public class HomeFrame extends BorderPane {
 
         Button btnProfilo = new Button("Profilo");
         btnProfilo.getStyleClass().add("btnProfilo");
+        btnProfilo.setOnAction(e -> {
+            LoginFrame loginFrame = new LoginFrame(); //Creazione oggetto loginFrame
+            this.getScene().setRoot(loginFrame); //Cambio scena
+        });
 
         Region spazio = new Region(); //Componente grafico vuoto che occupa spazio
         HBox.setHgrow(spazio, Priority.ALWAYS); //La sua dimensione cresce schiacciando ciò che c'è dopo
 
         header.getChildren().addAll(titolo,btnFiltro,spazio,btnProfilo);
+
+
         return header;
     }
 
