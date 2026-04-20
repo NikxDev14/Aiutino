@@ -20,4 +20,8 @@ public class Utente {
     public String getPassword() {
         return password;
     }
+
+    public String toCsv(){
+        return username+";"+email+";"+password;
+    }
 }
