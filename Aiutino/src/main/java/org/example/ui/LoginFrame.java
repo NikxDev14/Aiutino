@@ -2,6 +2,8 @@ package org.example.ui;
 
 import javafx.geometry.*;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 public class LoginFrame extends StackPane {
@@ -15,7 +17,7 @@ public class LoginFrame extends StackPane {
 
         //Titolo pagina
         Label titolo = new Label("Bentornato/a!");
-        titolo.getStyleClass().add("login.titolo");
+        titolo.getStyleClass().add("login-titolo");
 
         //Input
         TextField email = new TextField();
@@ -35,12 +37,19 @@ public class LoginFrame extends StackPane {
         Label separatore = new Label("Oppure");
         separatore.setStyle("-fx-text-fill: #7f8c8d;");
 
+        //Bottone Google
+        ImageView iconaGoogle = new ImageView(new Image(getClass().getResourceAsStream("/icona-google.png"))); //Prende immagine da cartella resource
+        iconaGoogle.setFitHeight(20); //Altezza icona
+        iconaGoogle.setPreserveRatio(true); //Mantiene proporzioni
+        Button btnGoogle = new Button("Accedi con Google");
+        btnGoogle.setGraphic(iconaGoogle); //Aggiunge icona nel bottone
+        btnGoogle.setGraphicTextGap(10);  //Spazio tra icona e testo
+        btnGoogle.getStyleClass().add("btnGoogle");
+        btnGoogle.setMaxWidth(Double.MAX_VALUE);
+
         //Altri bottoni
         HBox bottoniAggiuntivi = new HBox(15);
         bottoniAggiuntivi.setAlignment(Pos.CENTER);
-
-        Button btnGoogle = new Button("Accedi con Google");
-        btnGoogle.getStyleClass().add("btnAltro");
 
         Button btnRegistrati = new Button("Registrati");
         btnRegistrati.getStyleClass().add("btnAltro");
@@ -53,10 +62,10 @@ public class LoginFrame extends StackPane {
         });
 
         //Aggiunta pulsanti secondari in HBox
-        bottoniAggiuntivi.getChildren().addAll(btnGoogle, btnRegistrati, btnHome);
+        bottoniAggiuntivi.getChildren().addAll(btnRegistrati, btnHome);
 
         //Aggiungere tutto alla card principale
-        card.getChildren().addAll(titolo, email, password, btnAccedi, separatore, bottoniAggiuntivi);
+        card.getChildren().addAll(titolo, email, password, btnAccedi, separatore, btnGoogle, bottoniAggiuntivi);
 
         //Aggiungere a StackPane
         this.getChildren().add(card);

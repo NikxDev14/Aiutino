@@ -3,6 +3,7 @@
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
+/* HOME */
 /* Header */
 .header {
     -fx-background-color: #4a90e2;
@@ -37,4 +38,78 @@
 
 .btnFiltro:hover, .btnProfilo:hover {
     -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* LOGIN +/
+/* Card login */
+.login-card {
+    -fx-background-color: white;
+    -fx-background-radius: 30;
+    -fx-padding: 40;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 20, 0, 0, 15);
+}
+
+.login-titolo {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a90e2;
+    -fx-padding: 0 0 20 0;
+}
+
+/* Campi di testo */
+.campo-input {
+    -fx-background-color: #f1f4f8;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+    -fx-border-color: transparent;
+}
+
+.campo-input:focused {
+    -fx-border-color: #4a90e2;
+    -fx-border-radius: 10;
+    -fx-background-color: white;
+}
+
+/* Bottone Accedi */
+.btnAccedi {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.btnAccedi:hover {
+    -fx-background-color: #357abd;
+}
+
+.btnGoogle {
+    -fx-background-color: white;
+    -fx-text-fill: #5f6368; /* Grigio scuro Google */
+    -fx-border-color: #dadce0; /* Bordo grigio chiaro */
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.btnGoogle:hover {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #bdc1c6;
+}
+
+/* Bottoni registrati e home */
+.btnAltro {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4a90e2;
+    -fx-border-color: #4a90e2;
+    -fx-border-radius: 8;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+}
+
+.btnAltro:hover {
+    -fx-background-color: #f1f4f8;
 }
