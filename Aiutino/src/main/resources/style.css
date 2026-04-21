@@ -40,16 +40,16 @@
     -fx-background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* LOGIN e REGISTRAZIONE+/
-/* Card login e registrazione */
-.login-card, .registrati-card {
+/* LOGIN, REGISTRAZIONE e OTP */
+/* Card login, registrazione e otp*/
+.login-card, .registrati-card, .otp-card {
     -fx-background-color: white;
     -fx-background-radius: 30;
     -fx-padding: 40;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 20, 0, 0, 15);
 }
 
-.login-titolo, .registrati-titolo {
+.login-titolo, .registrati-titolo, .otp-titolo {
     -fx-font-size: 26px;
     -fx-font-weight: bold;
     -fx-text-fill: #4a90e2;
@@ -71,7 +71,7 @@
 }
 
 /* Bottone Accedi e Registrati */
-.btnAccedi, .btnRegistrati {
+.btnAccedi, .btnRegistrati, .btnVerifica {
     -fx-background-color: #4a90e2;
     -fx-text-fill: white;
     -fx-background-radius: 10;
@@ -80,7 +80,7 @@
     -fx-cursor: hand;
 }
 
-.btnAccedi:hover {
+.btnAccedi:hover, .btnRegistrati:hover, .btnVerifica:hover {
     -fx-background-color: #357abd;
 }
 

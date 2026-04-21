@@ -2,7 +2,6 @@ package org.example.service;
 
 import org.example.model.Utente;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Auth {
@@ -29,5 +28,11 @@ public class Auth {
         }
         FileUtenti.salvaUtente(email,password,username);
         return 0;
+    }
+
+    public static String generaOtp(){
+        int numero = (int)(Math.random() * 1000000);
+        String otp = String.format("%06d", numero);
+        return otp;
     }
 }

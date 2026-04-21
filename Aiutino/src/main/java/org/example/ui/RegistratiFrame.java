@@ -2,8 +2,6 @@ package org.example.ui;
 
 import javafx.geometry.*;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -100,9 +98,17 @@ public class RegistratiFrame extends StackPane {
                     }
                 }
             }
-            else{
+            else if(codice == 0){
                 messaggioErrore.setVisible(false);
                 messaggioErrore.setManaged(false);
+
+                //Otp
+                String otp = Auth.generaOtp();
+                System.out.println("Debug --> Otp: " + otp);
+                //Invio email
+
+                //Cambio scena
+                this.getScene().setRoot(new OtpFrame(email.getText(), otp));
             }
         });
 
