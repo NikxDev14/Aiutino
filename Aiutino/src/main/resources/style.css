@@ -40,16 +40,16 @@
     -fx-background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* LOGIN +/
-/* Card login */
-.login-card {
+/* LOGIN e REGISTRAZIONE+/
+/* Card login e registrazione */
+.login-card, .registrati-card {
     -fx-background-color: white;
     -fx-background-radius: 30;
     -fx-padding: 40;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 20, 0, 0, 15);
 }
 
-.login-titolo {
+.login-titolo, .registrati-titolo {
     -fx-font-size: 26px;
     -fx-font-weight: bold;
     -fx-text-fill: #4a90e2;
@@ -70,8 +70,8 @@
     -fx-background-color: white;
 }
 
-/* Bottone Accedi */
-.btnAccedi {
+/* Bottone Accedi e Registrati */
+.btnAccedi, .btnRegistrati {
     -fx-background-color: #4a90e2;
     -fx-text-fill: white;
     -fx-background-radius: 10;
@@ -100,7 +100,7 @@
     -fx-border-color: #bdc1c6;
 }
 
-/* Bottoni registrati e home */
+/* Bottoni sotto separatore */
 .btnAltro {
     -fx-background-color: transparent;
     -fx-text-fill: #4a90e2;
@@ -112,4 +112,19 @@
 
 .btnAltro:hover {
     -fx-background-color: #f1f4f8;
+}
+
+/* Campo per errori */
+.campo-errore {
+    -fx-background-color: #ffcccc;
+    -fx-border-color: #e74c3c;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.scritta-errore {
+    -fx-fill: #e74c3c;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 0;
 }

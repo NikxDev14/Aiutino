@@ -53,12 +53,14 @@ public class LoginFrame extends StackPane {
 
         Button btnRegistrati = new Button("Registrati");
         btnRegistrati.getStyleClass().add("btnAltro");
+        btnRegistrati.setOnAction(e ->{
+            this.getScene().setRoot(new RegistratiFrame());
+        });
 
         Button btnHome = new Button("Home");
         btnHome.getStyleClass().add("btnAltro");
         btnHome.setOnAction(e ->{
-            HomeFrame home = new HomeFrame();
-            this.getScene().setRoot(home);
+            this.getScene().setRoot(new HomeFrame());
         });
 
         //Aggiunta pulsanti secondari in HBox
