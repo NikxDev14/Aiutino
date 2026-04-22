@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import org.example.model.Utente;
 import org.example.service.Auth;
 
 public class RegistratiFrame extends StackPane {
@@ -62,7 +63,7 @@ public class RegistratiFrame extends StackPane {
             messaggioErrore.setManaged(false);
 
             Auth auth = new Auth();
-            int codice = auth.registrati(username.getText(), email.getText(), password.getText());
+            int codice = auth.controlloErrori(username.getText(), email.getText(), password.getText(), true);
             if (codice != 0){
                 btnRegistrati.setStyle("-fx-background-color: red");
                 messaggioErrore.setVisible(true);
@@ -110,7 +111,7 @@ public class RegistratiFrame extends StackPane {
                 auth.sendMail(email.getText(), otp);
 
                 //Cambio scena
-                this.getScene().setRoot(new OtpFrame(email.getText(), otp));
+                this.getScene().setRoot(new OtpFrame(auth.fornisciUtente(), otp, true));
             }
         });
 

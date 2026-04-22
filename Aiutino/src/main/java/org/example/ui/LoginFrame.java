@@ -5,6 +5,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import org.example.service.Auth;
 
 public class LoginFrame extends StackPane {
 
@@ -28,10 +31,72 @@ public class LoginFrame extends StackPane {
         password.setPromptText("Password");
         password.getStyleClass().add("campo-input");
 
+        //Scritta in caso di errori
+        Text messaggioErrore = new Text("");
+        messaggioErrore.getStyleClass().add("scritta-errore");
+        messaggioErrore.setManaged(false); //Non occupa spazio finché non è visibile
+        messaggioErrore.setTextAlignment(TextAlignment.CENTER);
+        messaggioErrore.setWrappingWidth(320); //Per mandare il testo a capo e non farlo uscire
+        messaggioErrore.setVisible(false);
+
         //Bottoni
         Button btnAccedi = new Button("Accedi");
         btnAccedi.getStyleClass().add("btnAccedi");
         btnAccedi.setMaxWidth(Double.MAX_VALUE);
+        btnAccedi.setOnAction(e ->{
+            password.getStyleClass().remove("campo-errore");
+            email.getStyleClass().remove("campo-errore");
+            messaggioErrore.setVisible(false);
+            messaggioErrore.setManaged(false);
+
+            Auth auth = new Auth();
+            int codice = auth.controlloErrori(null, email.getText(), password.getText(), false);
+            if (codice != 0){
+                btnAccedi.setStyle("-fx-background-color: red");
+                messaggioErrore.setVisible(true);
+                messaggioErrore.setManaged(true);
+
+                switch (codice){
+                    case 1 :{
+                        messaggioErrore.setText("Uno o più campi sono vuoti. Qualcuno qua ha bisogno degli occhiali...");
+                        break;
+                    }
+                    case 2 :{
+                        messaggioErrore.setText("L'email non è stata trovata, ma ci sei mai stato qui?");
+                        email.getStyleClass().add("campo-errore");
+                        break;
+                    }
+                    case 3 :{
+                        messaggioErrore.setText("Password errata, so che ti sei dimenticato dove hai messo il bigliettino con la password.");
+                        password.getStyleClass().add("campo-errore");
+                        break;
+                    }
+                    case 4 :{
+                        messaggioErrore.setText("L'email è scritta male. Ti serve un disegnino?");
+                        email.getStyleClass().add("campo-errore");
+                        break;
+                    }
+
+                    default:{
+                        messaggioErrore.setText("Qualcosa è andato storto, ma non ho voglia di spiegarti cosa.");
+                    }
+                }
+            }
+            else if(codice == 0){
+                messaggioErrore.setVisible(false);
+                messaggioErrore.setManaged(false);
+
+                //Otp
+                String otp = Auth.generaOtp();
+                System.out.println("Debug --> Otp: " + otp);
+
+                //Invio email
+                auth.sendMail(email.getText(), otp);
+
+                //Cambio scena
+                this.getScene().setRoot(new OtpFrame(auth.fornisciUtente(), otp, false));
+            }
+        });
 
         //Separatore
         Label separatore = new Label("Oppure");
@@ -67,7 +132,7 @@ public class LoginFrame extends StackPane {
         bottoniAggiuntivi.getChildren().addAll(btnRegistrati, btnHome);
 
         //Aggiungere tutto alla card principale
-        card.getChildren().addAll(titolo, email, password, btnAccedi, separatore, btnGoogle, bottoniAggiuntivi);
+        card.getChildren().addAll(titolo, email, password, messaggioErrore, btnAccedi, separatore, btnGoogle, bottoniAggiuntivi);
 
         //Aggiungere a StackPane
         this.getChildren().add(card);
