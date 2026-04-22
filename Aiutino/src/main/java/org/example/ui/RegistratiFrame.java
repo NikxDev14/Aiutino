@@ -105,7 +105,9 @@ public class RegistratiFrame extends StackPane {
                 //Otp
                 String otp = Auth.generaOtp();
                 System.out.println("Debug --> Otp: " + otp);
+
                 //Invio email
+                auth.sendMail(email.getText(), otp);
 
                 //Cambio scena
                 this.getScene().setRoot(new OtpFrame(email.getText(), otp));

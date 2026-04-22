@@ -2,6 +2,8 @@ package org.example;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.model.Utente;
+import org.example.service.Sessione;
 import org.example.ui.HomeFrame;
 
 public class Main extends Application{
@@ -19,6 +21,8 @@ public class Main extends Application{
         mainStage.show();
     }
     public static void main(String[] args) {
+        Utente utente = new Utente("Nikx", "nfrigati@it", "12345678");
+        Sessione.login(utente);
         launch(args);
     }
 }

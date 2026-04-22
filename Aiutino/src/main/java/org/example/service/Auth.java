@@ -2,11 +2,13 @@ package org.example.service;
 
 import org.example.model.Utente;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Auth {
 
     private ArrayList<Utente> utenti = FileUtenti.leggiUtenti();
+
 
     public int registrati(String username, String email, String password){
 
@@ -34,5 +36,21 @@ public class Auth {
         int numero = (int)(Math.random() * 1000000);
         String otp = String.format("%06d", numero);
         return otp;
+    }
+
+    public void sendMail(String email, String otp) {
+        //Caricare file .env
+        try{
+            EnvLoader.load(".env");
+        }catch (Exception e){
+            System.out.println("ERRORE LETTURA .ENV");
+        }
+        //Usiamo funzione di libreria presente in EmailSender
+        try{
+            EmailSender.send(email, otp);
+            System.out.println("Email inviata!");
+        }catch (Exception e){
+            System.out.println("Errore invio email!");
+        }
     }
 }

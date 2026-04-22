@@ -3,6 +3,7 @@ package org.example.ui;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import org.example.service.Sessione;
 
 public class HomeFrame extends BorderPane {
 

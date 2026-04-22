@@ -25,7 +25,7 @@
 }
 
 /* Bottoni dell'Header */
-.btnFiltro, .btnProfilo {
+.btnFiltro, .btnProfilo, .btnRecensione {
     -fx-background-color: rgba(255, 255, 255, 0.2); /* Trasparenza bianca come mockup */
     -fx-text-fill: white;
     -fx-background-radius: 12;
@@ -36,7 +36,7 @@
     -fx-border-radius: 12;
 }
 
-.btnFiltro:hover, .btnProfilo:hover {
+.btnFiltro:hover, .btnProfilo:hover, .btnRecensione:hover {
     -fx-background-color: rgba(255, 255, 255, 0.3);
 }
 
