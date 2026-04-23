@@ -21,8 +21,6 @@ public class Main extends Application{
         mainStage.show();
     }
     public static void main(String[] args) {
-        Utente utente = new Utente("Nikx", "nfrigati@it", "12345678");
-        Sessione.login(utente);
         launch(args);
     }
 }

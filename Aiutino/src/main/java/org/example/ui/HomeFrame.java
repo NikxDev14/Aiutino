@@ -8,6 +8,7 @@ import org.example.service.Sessione;
 public class HomeFrame extends BorderPane {
 
     public HomeFrame(){
+        System.out.println("Debug --> Stato autenticazione: " + Sessione.isAutenticato() + " Utente: " + Sessione.getUtente());
         //Applicare una classe CSS al contenitore principale
         this.getStyleClass().add("contenitore-principale");
 
@@ -27,18 +28,29 @@ public class HomeFrame extends BorderPane {
         Button btnFiltro = new Button("Filtra categorie");
         btnFiltro.getStyleClass().add("btnFiltro");
 
-        Button btnProfilo = new Button("Profilo");
-        btnProfilo.getStyleClass().add("btnProfilo");
-        btnProfilo.setOnAction(e -> {
-            LoginFrame loginFrame = new LoginFrame(); //Creazione oggetto loginFrame
-            this.getScene().setRoot(loginFrame); //Cambio scena
-        });
-
         Region spazio = new Region(); //Componente grafico vuoto che occupa spazio
         HBox.setHgrow(spazio, Priority.ALWAYS); //La sua dimensione cresce schiacciando ciò che c'è dopo
 
-        header.getChildren().addAll(titolo,btnFiltro,spazio,btnProfilo);
+        header.getChildren().addAll(titolo,btnFiltro,spazio);
 
+        if (Sessione.isAutenticato()){
+            Button btnRecensioni = new Button("+ Aggiungi recensione");
+            btnRecensioni.getStyleClass().add("btnProfilo");
+            header.getChildren().add(btnRecensioni);
+            btnRecensioni.setOnAction(e -> {
+
+            });
+        }
+
+        Button btnProfilo = new Button(Sessione.isAutenticato() ? "Profilo" : "Accedi");
+        btnProfilo.getStyleClass().add("btnProfilo");
+        btnProfilo.setOnAction(e -> {
+            if (!Sessione.isAutenticato()){ //Se autenticato entra nel profilo, altrimenti bisogna autenticarsi
+                LoginFrame loginFrame = new LoginFrame(); //Creazione oggetto loginFrame
+                this.getScene().setRoot(loginFrame); //Cambio scena
+            }
+        });
+        header.getChildren().add(btnProfilo);
 
         return header;
     }

@@ -21,6 +21,8 @@ public class Utente {
         return password;
     }
 
+    public String toString() {return username + " - " + email + " - " + password;}
+
     public String toCsv(){
         return username+";"+email+";"+password;
     }
