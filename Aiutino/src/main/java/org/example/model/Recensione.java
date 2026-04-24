@@ -17,8 +17,29 @@ public class Recensione {
         this.frasiIroniche = frasiIroniche;
     }
 
-    //Metodo per trasformare la lista di frasi in una stringa unica per il CSV
-    public String getFrasiPerCSV() {
-        return String.join("|", frasiIroniche);
+    public String getUtente() {
+        return utente;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public int getStelle() {
+        return stelle;
+    }
+
+    public String getCommento() {
+        return commento;
+    }
+
+    public List<String> getFrasiIroniche() {
+        return frasiIroniche;
+    }
+
+    public String toCsv(){
+        String commento = this.commento != null ? this.commento.replace(";",",") : ""; //Se il commento non è vuoto sostituisce ; con ,
+        String frasi = String.join("|", frasiIroniche); //Unisce le frasi ironiche spuntate separandole con |
+        return utente + ";" + categoria + ";" + stelle + ";" + commento + ";" + frasi;
     }
 }
