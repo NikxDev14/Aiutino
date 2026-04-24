@@ -21,7 +21,10 @@
 /* Sfondo del body */
 .body-scroll {
     -fx-background: linear-gradient(to bottom right, #34495e, #2c3e50); /* Da sistemare */
-    -fx-background-color: transparent;
+    /*-fx-background-color: transparent; */
+    -fx-background-image: url("Immagini/fotoSfondo.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
 }
 
 /* Bottoni dell'Header */

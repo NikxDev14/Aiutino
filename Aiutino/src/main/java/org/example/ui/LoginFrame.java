@@ -8,6 +8,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import org.example.service.Auth;
+import org.example.service.Sessione;
 
 public class LoginFrame extends StackPane {
 
@@ -86,15 +87,8 @@ public class LoginFrame extends StackPane {
                 messaggioErrore.setVisible(false);
                 messaggioErrore.setManaged(false);
 
-                //Otp
-                String otp = Auth.generaOtp();
-                System.out.println("Debug --> Otp: " + otp);
-
-                //Invio email
-                auth.sendMail(email.getText(), otp);
-
-                //Cambio scena
-                this.getScene().setRoot(new OtpFrame(auth.fornisciUtente(), otp, false));
+                Sessione.login(auth.fornisciUtente()); //Autentica utente
+                this.getScene().setRoot(new HomeFrame()); //Cambia scena
             }
         });
 

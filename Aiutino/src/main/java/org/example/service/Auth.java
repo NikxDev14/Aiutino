@@ -39,12 +39,19 @@ public class Auth {
             if (!email.contains("@")){
                 return 4;
             }
+            boolean emailTrovata = false;
             for (Utente u : utenti){
                 if (!email.toLowerCase().equals(u.getEmail())){
-                    return 2;
+                   continue;
+                }
+                else {
+                    emailTrovata = true;
                 }
                 if (!password.equals(u.getPassword())) {
                     return 3;
+                }
+                if (!emailTrovata){
+                    return 2;
                 }
             }
             for (Utente u : utenti){
