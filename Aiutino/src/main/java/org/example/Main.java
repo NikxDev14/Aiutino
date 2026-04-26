@@ -12,7 +12,7 @@ public class Main extends Application{
         HomeFrame home = new HomeFrame();
         Scene scena = new Scene(home, 1000, 700);
 
-        // Caricamento del CSS
+        //Caricamento del CSS
         String css = getClass().getResource("/style.css").toExternalForm();
         scena.getStylesheets().add(css);
 

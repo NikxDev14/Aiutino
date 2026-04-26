@@ -7,6 +7,7 @@ import javafx.scene.layout.*;
 import org.example.model.Recensione;
 import org.example.service.FileFrasi;
 //import org.example.service.FileRecensioni;
+import org.example.service.FileRecensioni;
 import org.example.service.Sessione;
 
 import java.util.ArrayList;
@@ -100,7 +101,7 @@ public class AggiungiRecensioneOverlay extends StackPane {
             //Crea un nuovo oggetto
             Recensione r = new Recensione(Sessione.getUtente().getUsername(), comboCategorie.getValue(), (int) sliderStelle.getValue(), areaCommento.getText(), frasiSelezionate);
 
-            //FileRecensioni.salvaRecensione(r);
+            FileRecensioni.salvaRecensione(r);
             onAggiornaHome.run(); //Ricarica home
             chiudi();
         });

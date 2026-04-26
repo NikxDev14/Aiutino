@@ -29,8 +29,10 @@ public class FileRecensioni {
                         List<String> frasi = new ArrayList<>();
                         if (campi.length >= 5) {
                             //Separa le frasi ironiche salvate con | e le trasforma in una lista
-                            String[] frasiArray = campi[4].split("|");
-                            frasi = new ArrayList<>(Arrays.asList(frasiArray));
+                            String[] frasiArray = campi[4].split("\\|");
+                            for (int i = 0; i < frasiArray.length; i++){
+                                frasi.add(frasiArray[i]);
+                            }
                         }
 
                         Recensione tmp = new Recensione(utente, categoria, stelle, commento, frasi);

@@ -7,6 +7,9 @@ import javafx.scene.layout.*;
 import org.example.model.Recensione;
 import org.example.service.FileRecensioni;
 import org.example.service.Sessione;
+import javafx.scene.text.Text;
+//import org.w3c.dom.Text;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -110,13 +113,22 @@ public class HomeFrame extends StackPane {
 
     private VBox creaCardRecensione(Recensione r) {
         VBox card = new VBox(10);
-        card.getStyleClass().add("login-card"); //Riuso del css della login card
+        card.getStyleClass().add("recensioni-card"); //css
 
         Label autore = new Label("@" + r.getUtente());
-        Label stelle = new Label("★".repeat(r.getStelle())); //Scrive tante stelle quanto segnate nell'oggetto
-        Label commento = new Label(r.getCommento());
+        autore.getStyleClass().add("autore"); //css
 
-        card.getChildren().addAll(autore, stelle, new Label(r.getCategoria()), commento);
+        Label stelle = new Label("★".repeat(r.getStelle())); //Scrive tante stelle quanto segnate nell'oggetto
+        stelle.getStyleClass().add("stelle");
+
+        Label categoria = new Label(r.getCategoria());
+        categoria.getStyleClass().add("categoria");
+
+        Text commento = new Text(r.getCommento());
+        commento.getStyleClass().add("commento");
+        commento.setWrappingWidth(320);
+
+        card.getChildren().addAll(autore, stelle, categoria, commento);
 
         //Cliccando mostra tutti i dettagli della recensione
         card.setOnMouseClicked(e -> mostraDettaglioRecensione(r));
@@ -132,7 +144,7 @@ public class HomeFrame extends StackPane {
 
         //Card recensione completa
         VBox dettaglio = new VBox(20);
-        dettaglio.getStyleClass().add("login-card"); //Riusa il formato login
+        dettaglio.getStyleClass().add("recensioni-card"); //Riusa il formato login
         dettaglio.setMaxSize(400, 500);
         dettaglio.setPadding(new Insets(30));
 
@@ -143,22 +155,38 @@ public class HomeFrame extends StackPane {
         Label titolo = new Label("Dettagli Recensione");
         titolo.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
-        // Sezione Frasi Ironiche
+        Label stelle = new Label("★".repeat(r.getStelle())); //Scrive tante stelle quanto segnate nell'oggetto
+        stelle.getStyleClass().add("stelle");
+
+        Label autore = new Label("Autore: " + r.getUtente());
+        autore.getStyleClass().add("autore");
+
+        Label categoria = new Label(r.getCategoria());
+        categoria.getStyleClass().add("categoria-dettaglio");
+
+        Label lblCommento = new Label("Commento:");
+        lblCommento.setStyle("-fx-font-weight: bold;");
+        Text commento = new Text(r.getCommento());
+        commento.getStyleClass().add("commento-dettaglio");
+        commento.setWrappingWidth(320);
+
+        //Sezione frasi ironiche
         VBox boxFrasi = new VBox(5);
         Label lblFrasi = new Label("Frasi selezionate:");
         lblFrasi.setStyle("-fx-font-weight: bold;");
         boxFrasi.getChildren().add(lblFrasi);
 
         for (String frase : r.getFrasiIroniche()) {
-            Label f = new Label("- " + frase);
-            f.setStyle("-fx-font-style: italic; -fx-text-fill: #e67e22;");
+            Text f = new Text("- " + frase);
+            f.getStyleClass().add("frase-ironica");
+            f.setWrappingWidth(250);
             boxFrasi.getChildren().add(f);
         }
 
-        dettaglio.getChildren().addAll(chiudi, titolo, new Label("Autore: " + r.getUtente()), boxFrasi);
+        dettaglio.getChildren().addAll(chiudi, titolo, autore,  stelle, categoria, boxFrasi, lblCommento, commento);
         overlay.getChildren().add(dettaglio);
 
-        // Aggiungiamo l'overlay sopra a tutto
+        //Aggiunge l'overlay sopra a tutto
         this.getChildren().add(overlay);
     }
 }
