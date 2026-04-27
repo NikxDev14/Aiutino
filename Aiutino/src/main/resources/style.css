@@ -44,7 +44,7 @@
     -fx-border-color: rgba(255, 255, 255, 0.4);
     -fx-border-radius: 12;
 }
-
+/* Tendina filtro */
 .btnFiltro:hover, .btnProfilo:hover, .btnRecensione:hover {
     -fx-background-color: rgba(255, 255, 255, 0.3);
 }
@@ -209,6 +209,7 @@
     -fx-font-style: italic;
     -fx-font-size: 15px;
 }
+/* Overlay aggiungi recensione */
 .card-add-recensioni{
     -fx-background-color: #c6e9f9;
     -fx-background-radius: 30;
@@ -230,4 +231,35 @@
 }
 .slider .thumb {
     -fx-background-color: gold;
+}
+
+/* Profilo */
+.header-profilo {
+    -fx-background-color: linear-gradient(to bottom, #4a90e2, rgba(74, 144, 226, 0.5));
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 0, 5);
+}
+
+/* Cerchio con iniziale utente */
+.avatar-profilo {
+    -fx-background-color: white;
+    -fx-text-fill: #4a90e2;
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-min-width: 100px;
+    -fx-min-height: 100px;
+    -fx-max-width: 100px;
+    -fx-max-height: 100px;
+    -fx-alignment: center;
+    -fx-background-radius: 50; /* Lo rende un cerchio perfetto */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.titolo-profilo {
+    -fx-text-fill: white;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+}
+
+.body-scroll .content {
+    -fx-background-color: transparent;
 }

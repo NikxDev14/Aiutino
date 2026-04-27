@@ -92,6 +92,9 @@ public class HomeFrame extends StackPane {
                 LoginFrame loginFrame = new LoginFrame(); //Creazione oggetto loginFrame
                 this.getScene().setRoot(loginFrame); //Cambio scena
             }
+            else {
+                this.getScene().setRoot(new ProfiloFrame());
+            }
         });
         header.getChildren().add(btnProfilo);
 
