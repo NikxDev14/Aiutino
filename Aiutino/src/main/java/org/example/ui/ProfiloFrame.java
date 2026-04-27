@@ -112,7 +112,13 @@ public class ProfiloFrame extends StackPane {
         commento.getStyleClass().add("commento");
         commento.setWrappingWidth(500);
 
-        card.getChildren().addAll(stelle, cat, commento);
+        Button btnElimina = new Button("Elimina recensione");
+        btnElimina.getStyleClass().add("btnElimina");
+        btnElimina.setOnAction(e ->{
+            FileRecensioni.eliminaRecensione(r);
+            layoutPrincipale.setCenter(creaBodyProfilo());
+        });
+        card.getChildren().addAll(stelle, cat, commento, btnElimina);
 
         //Cliccando mostra tutti i dettagli della recensione
         card.setOnMouseClicked(e -> mostraDettaglioRecensione(r));

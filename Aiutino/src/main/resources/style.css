@@ -263,3 +263,17 @@
 .body-scroll .content {
     -fx-background-color: transparent;
 }
+.btnElimina {
+    -fx-background-color: #ff4757;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 8 15;
+    -fx-cursor: hand;
+    -fx-margin: 10 0 0 0;
+}
+
+.btnElimina:hover {
+    -fx-background-color: #ff6b81;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 71, 87, 0.4), 10, 0, 0, 0);
+}

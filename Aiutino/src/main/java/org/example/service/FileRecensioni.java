@@ -65,4 +65,25 @@ public class FileRecensioni {
             System.out.println("Errore durante scrittura della recensione! " + e.getMessage());
         }
     }
+
+    public static void eliminaRecensione(Recensione daEliminare) {
+        ArrayList<Recensione> recensioniAttuali = leggiRecensioni();
+
+        //Rimuove direttamente la recensione corrispondente iterando la lista
+        recensioniAttuali.removeIf(r ->
+                r.getUtente().equals(daEliminare.getUtente()) &&
+                        r.getCategoria().equals(daEliminare.getCategoria()) &&
+                        r.getCommento().equals(daEliminare.getCommento())
+        );
+
+        //FileWtriter per riscrivere sul file csv
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PATH, false))) {
+            for (Recensione r : recensioniAttuali) {
+                bw.write(r.toCsv());
+                bw.newLine();
+            }
+        } catch (Exception e) {
+            System.out.println("Errore durante l'eliminazione della recensione! " + e.getMessage());
+        }
+    }
 }
