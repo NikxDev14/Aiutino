@@ -39,33 +39,24 @@ public class Auth {
             if (!email.contains("@")){
                 return 4;
             }
-            boolean emailTrovata = false;
-            for (Utente u : utenti){
-                if (!email.toLowerCase().equals(u.getEmail()) && !emailTrovata){
-                   continue;
-                }
-                else {
-                    emailTrovata = true;
-                }
 
-                if (emailTrovata){
-                    if (!password.equals(u.getPassword())) {
-                        return 3;
-                    }
+            Utente utenteTrovato = null;
+            for (Utente u : utenti) {
+                if (u.getEmail().equalsIgnoreCase(email)) {
+                    utenteTrovato = u;
+                    break;
                 }
             }
-            if (!emailTrovata){
+            if (utenteTrovato == null) {
                 return 2;
             }
 
-            for (Utente u : utenti){
-                if (email.equals(u.getEmail())){
-                    tmp = new Utente(u.getUsername(), email, password);
-                    return 0;
-                }
+            if (!utenteTrovato.getPassword().equals(password)) {
+                return 3;
             }
 
-            return 5;
+            tmp = utenteTrovato;
+            return 0;
         }
     }
     public Utente fornisciUtente(){
