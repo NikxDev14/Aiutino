@@ -28,7 +28,7 @@ public class AggiungiRecensioneOverlay extends StackPane {
 
         //Card aggiunta recensione
         VBox card = new VBox(20);
-        card.getStyleClass().add("login-card"); //Riutilizza css login (da rivedere)
+        card.getStyleClass().add("card-add-recensioni"); // css
         card.setMaxSize(500, 650);
         card.setPadding(new Insets(30));
         card.setAlignment(Pos.TOP_CENTER);
@@ -50,6 +50,8 @@ public class AggiungiRecensioneOverlay extends StackPane {
         ComboBox<String> comboCategorie = new ComboBox<>();
         comboCategorie.getItems().addAll(archivioFrasi.keySet()); //Aggiunge le varie categorie
         comboCategorie.setPromptText("Seleziona una categoria");
+        comboCategorie.getStyleClass().add("box-categoria");
+
         comboCategorie.setMaxWidth(Double.MAX_VALUE);
 
         //CheckBox dinamico
@@ -60,6 +62,9 @@ public class AggiungiRecensioneOverlay extends StackPane {
                 for (String frase : frasi) {
                     CheckBox cb = new CheckBox(frase);
                     cb.setWrapText(true);
+
+                    cb.getStyleClass().add("checkbox");
+
                     containerCheckBox.getChildren().add(cb);
                 }
             }
@@ -67,15 +72,20 @@ public class AggiungiRecensioneOverlay extends StackPane {
 
         //Selezione delle stelle
         Label lblStelle = new Label("Quanto è stato tragico? (1-5 stelle)");
+        lblStelle.getStyleClass().add("lblStelle");
+
         Slider sliderStelle = new Slider(1, 5, 3);
         sliderStelle.setMajorTickUnit(1);
         sliderStelle.setMinorTickCount(0);
         sliderStelle.setSnapToTicks(true);
         sliderStelle.setShowTickMarks(true);
+        sliderStelle.getStyleClass().add("slider");
 
         //Commento
         TextArea areaCommento = new TextArea();
         areaCommento.setPromptText("Aggiungi un commento (se hai ancora fiato per lamentarti)...");
+        areaCommento.getStyleClass().add("lblStelle");//stesso css di lblStelle
+
         areaCommento.setPrefRowCount(3);
         areaCommento.setWrapText(true);
 
@@ -86,7 +96,7 @@ public class AggiungiRecensioneOverlay extends StackPane {
 
         btnPubblica.setOnAction(e -> {
             if (comboCategorie.getValue() == null) {
-                System.out.println("Seleziona almeno una categoria!");
+                System.out.println("Ehmmm... hai dimenticato di selezionare la categoria!");
                 return;
             }
 

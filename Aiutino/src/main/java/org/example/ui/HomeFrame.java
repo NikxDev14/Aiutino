@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.example.model.Recensione;
+import org.example.service.FileFrasi;
 import org.example.service.FileRecensioni;
 import org.example.service.Sessione;
 import javafx.scene.text.Text;
@@ -13,9 +14,12 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class HomeFrame extends StackPane {
 
+    private String filtroAttivo;
     BorderPane layoutPrincipale;
 
     public HomeFrame(){
@@ -41,8 +45,26 @@ public class HomeFrame extends StackPane {
         Label titolo = new Label("Aiutino?");
         titolo.getStyleClass().add("titolo");
 
-        Button btnFiltro = new Button("Filtra categorie");
+        MenuButton btnFiltro = new MenuButton("Filtra categorie");
         btnFiltro.getStyleClass().add("btnFiltro");
+
+        MenuItem nessuno = new MenuItem("Nessun filtro");
+        nessuno.setOnAction(e -> {
+            filtroAttivo = null;
+            layoutPrincipale.setCenter(creaBody());
+        });
+        btnFiltro.getItems().add(nessuno);
+
+        Map<String, List<String>> categorie = FileFrasi.caricaFrasiPerCategoria();
+
+        for (String cat : categorie.keySet()) {
+            MenuItem item = new MenuItem(cat);
+            item.setOnAction(e -> {
+                filtroAttivo = cat; //Cliccando su un determinato filtro, lo attiva
+                layoutPrincipale.setCenter(creaBody()); //Ricarica body
+            });
+            btnFiltro.getItems().add(item);
+        }
 
         Region spazio = new Region(); //Componente grafico vuoto che occupa spazio
         HBox.setHgrow(spazio, Priority.ALWAYS); //La sua dimensione cresce schiacciando ciò che c'è dopo
@@ -93,6 +115,9 @@ public class HomeFrame extends StackPane {
 
         int riga = 0,colonna = 0;
         for (Recensione r : recensioni){
+            if (filtroAttivo != null && !r.getCategoria().equalsIgnoreCase(filtroAttivo)) {
+                continue;
+            }
             VBox card = creaCardRecensione(r);
             griglia.add(card, colonna, riga);
 
@@ -106,7 +131,7 @@ public class HomeFrame extends StackPane {
         //Rendere griglia scorribile
         ScrollPane sp = new ScrollPane(griglia);
         sp.setFitToWidth(true);
-        griglia.getStyleClass().add("body-scroll");
+        sp.getStyleClass().add("body-scroll");
         griglia.minHeightProperty().bind(sp.heightProperty());
         return sp;
     }
