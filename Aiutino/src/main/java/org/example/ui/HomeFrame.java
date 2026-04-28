@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.example.model.Recensione;
+import org.example.service.AIService;
 import org.example.service.FileFrasi;
 import org.example.service.FileRecensioni;
 import org.example.service.Sessione;
@@ -45,6 +46,17 @@ public class HomeFrame extends StackPane {
         Label titolo = new Label("Aiutino?");
         titolo.getStyleClass().add("titolo");
 
+        Button btnAI = new Button("✨ Chiedi all'AI");
+        btnAI.getStyleClass().add("btnFiltro"); // Usa lo stile trasparente che abbiamo creato
+
+        btnAI.setOnAction(e -> {
+            ArrayList<Recensione> lista = FileRecensioni.leggiRecensioni();
+
+            //Genera riassunto recensioni e le inoltra alla ai
+            String riassunto = AIService.generaRiassunto(lista);
+            mostraOverlayAI(riassunto);
+        });
+
         MenuButton btnFiltro = new MenuButton("Filtra categorie");
         btnFiltro.getStyleClass().add("btnFiltro");
 
@@ -69,7 +81,7 @@ public class HomeFrame extends StackPane {
         Region spazio = new Region(); //Componente grafico vuoto che occupa spazio
         HBox.setHgrow(spazio, Priority.ALWAYS); //La sua dimensione cresce schiacciando ciò che c'è dopo
 
-        header.getChildren().addAll(titolo,btnFiltro,spazio);
+        header.getChildren().addAll(titolo,btnAI,spazio, btnFiltro);
 
         if (Sessione.isAutenticato()){
             Button btnRecensioni = new Button("+ Aggiungi recensione");
@@ -215,6 +227,33 @@ public class HomeFrame extends StackPane {
         overlay.getChildren().add(dettaglio);
 
         //Aggiunge l'overlay sopra a tutto
+        this.getChildren().add(overlay);
+    }
+
+    private void mostraOverlayAI(String testo) {
+        VBox overlay = new VBox(20);
+        overlay.setStyle("-fx-background-color: rgba(0,0,0,0.8);");
+        overlay.setAlignment(Pos.CENTER);
+
+        VBox boxMessaggio = new VBox(15);
+        boxMessaggio.getStyleClass().add("login-card");
+        boxMessaggio.setMaxWidth(450);
+        boxMessaggio.setPadding(new Insets(30));
+
+        Label titolo = new Label("Riassunto Intelligente ✨");
+        titolo.getStyleClass().add("login-titolo");
+
+        Text contenuto = new Text(testo);
+        contenuto.setWrappingWidth(380);
+        contenuto.setStyle("-fx-font-size: 16px; -fx-font-style: italic;");
+
+        Button btnChiudi = new Button("Capito boss!!");
+        btnChiudi.getStyleClass().add("btnAccedi");
+        btnChiudi.setOnAction(ev -> this.getChildren().remove(overlay));
+
+        boxMessaggio.getChildren().addAll(titolo, contenuto, btnChiudi);
+        overlay.getChildren().add(boxMessaggio);
+
         this.getChildren().add(overlay);
     }
 }
