@@ -46,6 +46,7 @@ public class OtpFrame extends StackPane {
         //Bottoni
         Button btnVerifica = new Button("Verifica");
         btnVerifica.getStyleClass().add("btnVerifica");
+        btnVerifica.setDefaultButton(true);
         btnVerifica.setMaxWidth(Double.MAX_VALUE);
         btnVerifica.setOnAction(e ->{
 

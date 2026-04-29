@@ -75,7 +75,7 @@ public class Auth {
     public void sendMail(String email, String otp) {
         //Caricare file .env
         try{
-            EnvLoader.load(".env");
+            EnvLoader.load();
         }catch (Exception e){
             System.out.println("ERRORE LETTURA .ENV");
         }

@@ -53,6 +53,7 @@ public class RegistratiFrame extends StackPane {
 
         //Bottoni
         Button btnRegistrati = new Button("Registrati");
+        btnRegistrati.setDefaultButton(true);
         btnRegistrati.getStyleClass().add("btnRegistrati");
         btnRegistrati.setMaxWidth(Double.MAX_VALUE);
         btnRegistrati.setOnAction(e ->{

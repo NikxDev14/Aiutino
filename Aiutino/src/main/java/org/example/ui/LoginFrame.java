@@ -42,6 +42,7 @@ public class LoginFrame extends StackPane {
 
         //Bottoni
         Button btnAccedi = new Button("Accedi");
+        btnAccedi.setDefaultButton(true);
         btnAccedi.getStyleClass().add("btnAccedi");
         btnAccedi.setMaxWidth(Double.MAX_VALUE);
         btnAccedi.setOnAction(e ->{
