@@ -8,10 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EnvLoader {
+    private static String PATH_ENV = ".env";
     private static Map<String,String> env = new HashMap<>();
 
-    public static void load(String path) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(path));
+    public static void load() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(PATH_ENV));
         String line;
 
         while ((line = br.readLine()) != null){

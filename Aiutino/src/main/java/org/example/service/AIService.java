@@ -12,16 +12,26 @@ import java.util.ArrayList;
 
 public class AIService {
 
-    private static final String API_KEY = EnvLoader.getEnv("APY_KEY_AI");
-    private static final String URL = EnvLoader.getEnv("URL_AI") + API_KEY;
+    private static final String APY_KEY = EnvLoader.getEnv("APY_KEY_AI");
+    private static final String URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=" + APY_KEY.trim();
 
     public static String generaRiassunto(ArrayList<Recensione> recensioni) {
+        System.out.println(URL);
         StringBuilder sb = new StringBuilder();
         for (Recensione r : recensioni) {
-            sb.append(r.getCategoria()).append(": ").append(r.getCommento()).append("\n");
+            sb.append("Categoria: " + r.getCategoria()).append(": ").append("Commento: " + r.getCommento()).append("\n");
         }
 
-        String prompt = "Riassumi in modo ironico queste recensioni, dividendole per categorie: " + sb.toString();
+        String prompt;
+        if (Sessione.isAutenticato()){
+            prompt = "Riassumi in modo ironico queste recensioni, dividendole per categorie. Saluta l'utente " +Sessione.getUtente().getUsername()+
+                    " in modo simpatico prima di fare il riassunto. Ecco le recensioni: ";
+        }
+        else {
+            prompt = "Riassumi in modo ironico queste recensioni, dividendole per categorie." +
+                    " Saluta l'utente non autenticato in modo generico ma simpatico. Ecco le recensioni: ";
+        }
+        prompt = prompt + sb.toString();
 
         //Json con libreria GSON
         //La struttura di Gemini è: { "contents": [ { "parts": [ { "text": "..." } ] } ] }
@@ -48,6 +58,13 @@ public class AIService {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            System.out.println("Debug --> Codice Risposta: " + response.statusCode());
+            System.out.println("Debug --> Corpo Risposta: " + response.body());
+
+            if (response.statusCode() != 200) {
+                return "Errore API (" + response.statusCode() + "): Controlla i log in console.";
+            }
 
             //Risposta ai
             JsonObject fullResp = gson.fromJson(response.body(), JsonObject.class);

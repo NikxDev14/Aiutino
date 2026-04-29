@@ -50,11 +50,18 @@ public class HomeFrame extends StackPane {
         btnAI.getStyleClass().add("btnFiltro"); // Usa lo stile trasparente che abbiamo creato
 
         btnAI.setOnAction(e -> {
-            ArrayList<Recensione> lista = FileRecensioni.leggiRecensioni();
+            btnAI.setText("🤔 Sto pensando...");
+            btnAI.setDisable(true);
 
-            //Genera riassunto recensioni e le inoltra alla ai
-            String riassunto = AIService.generaRiassunto(lista);
-            mostraOverlayAI(riassunto);
+            new Thread(() -> {
+                String risultato = AIService.generaRiassunto(FileRecensioni.leggiRecensioni());
+
+                javafx.application.Platform.runLater(() -> {
+                    btnAI.setText("✨ Chiedi all'AI");
+                    btnAI.setDisable(false);
+                    mostraOverlayAI(risultato);
+                });
+            }).start();
         });
 
         MenuButton btnFiltro = new MenuButton("Filtra categorie");
@@ -244,16 +251,24 @@ public class HomeFrame extends StackPane {
         titolo.getStyleClass().add("login-titolo");
 
         Text contenuto = new Text(testo);
-        contenuto.setWrappingWidth(380);
+        contenuto.setWrappingWidth(360);
         contenuto.setStyle("-fx-font-size: 16px; -fx-font-style: italic;");
+
+        VBox contenitoreTesto = new VBox(contenuto);
+        contenitoreTesto.setPadding(new Insets(5));
+
+        ScrollPane sp = new ScrollPane(contenitoreTesto);
+        sp.setFitToWidth(true);
+        sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        sp.setStyle("-fx-background-color: transparent; -fx-background: transparent;");
 
         Button btnChiudi = new Button("Capito boss!!");
         btnChiudi.getStyleClass().add("btnAccedi");
         btnChiudi.setOnAction(ev -> this.getChildren().remove(overlay));
 
-        boxMessaggio.getChildren().addAll(titolo, contenuto, btnChiudi);
+        boxMessaggio.getChildren().addAll(titolo, sp, btnChiudi);
         overlay.getChildren().add(boxMessaggio);
-
         this.getChildren().add(overlay);
+
     }
 }
