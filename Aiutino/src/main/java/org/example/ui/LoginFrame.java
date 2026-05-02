@@ -1,5 +1,6 @@
 package org.example.ui;
 
+import javafx.application.Platform;
 import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -7,7 +8,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import org.example.model.Utente;
 import org.example.service.Auth;
+import org.example.service.FileUtenti;
+import org.example.service.GoogleAuthService;
 import org.example.service.Sessione;
 
 public class LoginFrame extends StackPane {
@@ -106,6 +110,44 @@ public class LoginFrame extends StackPane {
         btnGoogle.setGraphicTextGap(10);  //Spazio tra icona e testo
         btnGoogle.getStyleClass().add("btnGoogle");
         btnGoogle.setMaxWidth(Double.MAX_VALUE);
+        btnGoogle.setOnAction(e -> {
+            new Thread(() -> {
+                try {
+                    //Recupero dati utente da Google
+                    var googleInfo = GoogleAuthService.login();
+                    String emailGoogle = googleInfo.getEmail();
+                    String nomeGoogle = googleInfo.getName();
+
+                    //Controllo esistenza utente
+                    Utente utenteTrovato = FileUtenti.cercaPerEmail(emailGoogle);
+
+                    if (utenteTrovato != null) {
+                        //Utente esistente
+                        System.out.println("Utente trovato! Accesso all'account: " + utenteTrovato.getUsername());
+                        Platform.runLater(() -> {
+                            Sessione.login(utenteTrovato);
+                            this.getScene().setRoot(new HomeFrame());
+                        });
+                    } else {
+                        //Utente non esistente
+                        System.out.println("Nuovo utente. Generazione username...");
+                        String usernameUnivoco = FileUtenti.generaUsernameUnico(nomeGoogle);
+
+                        //Creazione user
+                        Utente nuovoUtente = new Utente(usernameUnivoco, emailGoogle, "AUTH_GOOGLE");
+                        FileUtenti.salvaUtente(nuovoUtente);
+
+                        Platform.runLater(() -> {
+                            Sessione.login(nuovoUtente);
+                            this.getScene().setRoot(new HomeFrame());
+                        });
+                    }
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }).start();
+        });
 
         //Altri bottoni
         HBox bottoniAggiuntivi = new HBox(15);

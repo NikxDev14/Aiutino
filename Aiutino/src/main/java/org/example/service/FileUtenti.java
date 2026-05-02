@@ -33,7 +33,7 @@ public class FileUtenti {
     }
 
 
-    public static void salvaUtente(String email, String password, String username){
+    public static void salvaUtente(Utente utente){
         File file = new File(PATH);
 
         if (!file.exists()){
@@ -45,13 +45,45 @@ public class FileUtenti {
             }
         }
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(PATH,true))){
-            Utente tmp = new Utente(username,email,password);
-            bw.write(tmp.toCsv());
+            bw.write(utente.toCsv());
             bw.newLine();
         }
         catch (Exception e){
             System.out.println("Errore durante scrittura del file! " + e.getMessage());
         }
+    }
+
+    public static Utente cercaPerEmail(String email) {
+        ArrayList<Utente> utenti = leggiUtenti();
+
+        for (Utente u : utenti) {
+            if (u.getEmail().equalsIgnoreCase(email)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    public static String generaUsernameUnico(String nomeUtente) {
+        ArrayList<Utente> utenti = leggiUtenti();
+        String nuovoUsername = nomeUtente;
+
+        //Genera utente randomico se utente non esiste
+        boolean esiste = true;
+        while (esiste) {
+            esiste = false;
+            for (Utente u : utenti) {
+                if (u.getUsername().equalsIgnoreCase(nuovoUsername)) {
+                    esiste = true;
+                    break;
+                }
+            }
+            if (esiste) {
+                int tag = (int) (Math.random() * 9000) + 1000;
+                nuovoUsername = nomeUtente + "#" + tag;
+            }
+        }
+        return nuovoUsername;
     }
 
 }

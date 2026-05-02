@@ -56,7 +56,8 @@ public class OtpFrame extends StackPane {
 
             if (Auth.verificaOtp(otp, campoOtp.getText())){
                 if (registrazione){
-                    FileUtenti.salvaUtente(utente.getEmail(), utente.getPassword(), utente.getUsername());
+                    Utente tmp = new Utente(utente.getUsername(), utente.getEmail(), utente.getPassword());
+                    FileUtenti.salvaUtente(tmp);
                     this.getScene().setRoot(new LoginFrame());
                 }
                 else {
