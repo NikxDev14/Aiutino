@@ -4,6 +4,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import org.example.model.Recensione;
 import org.example.service.FileFrasi;
 //import org.example.service.FileRecensioni;
@@ -81,6 +83,14 @@ public class AggiungiRecensioneOverlay extends StackPane {
         sliderStelle.setShowTickMarks(true);
         sliderStelle.getStyleClass().add("slider");
 
+        //Indirizzo
+        TextArea areaIndirizzo = new TextArea();
+        areaIndirizzo.setPromptText("Lo scrivi il nome del posto e l'indirizzo o è un segreto?");
+        areaIndirizzo.getStyleClass().add("lblStelle");//stesso css di lblStelle
+
+        areaIndirizzo.setPrefRowCount(1); //righe da visualizzare
+        areaIndirizzo.setWrapText(true);
+
         //Commento
         TextArea areaCommento = new TextArea();
         areaCommento.setPromptText("Aggiungi un commento (se hai ancora fiato per lamentarti)...");
@@ -94,11 +104,36 @@ public class AggiungiRecensioneOverlay extends StackPane {
         btnPubblica.getStyleClass().add("btnAccedi"); //Riusco css bottone accedi
         btnPubblica.setMaxWidth(Double.MAX_VALUE);
 
+        Text messaggioErrore = new Text("");
+        messaggioErrore.getStyleClass().add("scritta-errore");
+        messaggioErrore.setManaged(false); //Non occupa spazio finché non è visibile
+        messaggioErrore.setTextAlignment(TextAlignment.CENTER);
+        messaggioErrore.setWrappingWidth(320); //Per mandare il testo a capo e non farlo uscire
+        messaggioErrore.setVisible(false);
+
         btnPubblica.setOnAction(e -> {
-            if (comboCategorie.getValue() == null) {
-                System.out.println("Ehmmm... hai dimenticato di selezionare la categoria!");
+            areaIndirizzo.getStyleClass().remove("campo-errore");
+            comboCategorie.getStyleClass().remove("campo-errore");
+            messaggioErrore.setVisible(false);
+            messaggioErrore.setManaged(false);
+
+            if (areaIndirizzo.getText() == "") {
+                btnPubblica.setStyle("-fx-background-color: red");
+                areaIndirizzo.getStyleClass().add("campo-errore");
+                messaggioErrore.setVisible(true);
+                messaggioErrore.setManaged(true);
+                messaggioErrore.setText("L'indirizzo del posto vuoi tenertelo solo per te?");
                 return;
             }
+            if (comboCategorie.getValue() == null) {
+                btnPubblica.setStyle("-fx-background-color: red");
+                comboCategorie.getStyleClass().add("campo-errore");
+                messaggioErrore.setVisible(true);
+                messaggioErrore.setManaged(true);
+                messaggioErrore.setText("Ehmmm... hai dimenticato di selezionare la categoria!");
+                return;
+            }
+
 
             //Salva frasi spuntate
             List<String> frasiSelezionate = new ArrayList<>();
@@ -109,7 +144,7 @@ public class AggiungiRecensioneOverlay extends StackPane {
             });
 
             //Crea un nuovo oggetto
-            Recensione r = new Recensione(Sessione.getUtente().getUsername(), comboCategorie.getValue(), (int) sliderStelle.getValue(), areaCommento.getText(), frasiSelezionate);
+            Recensione r = new Recensione(Sessione.getUtente().getUsername(), comboCategorie.getValue(), (int) sliderStelle.getValue(), areaIndirizzo.getText(), areaCommento.getText(), frasiSelezionate);
 
             FileRecensioni.salvaRecensione(r);
             onAggiornaHome.run(); //Ricarica home
@@ -122,7 +157,7 @@ public class AggiungiRecensioneOverlay extends StackPane {
         scrollFrasi.setPrefHeight(150);
         scrollFrasi.setStyle("-fx-background-color: transparent;");
 
-        card.getChildren().addAll(header, comboCategorie, new Label("Scegli le frasi adatte:"), scrollFrasi, lblStelle, sliderStelle, areaCommento, btnPubblica);
+        card.getChildren().addAll(header, comboCategorie, new Label("Scegli le frasi adatte:"), scrollFrasi, lblStelle, sliderStelle,areaIndirizzo, areaCommento, messaggioErrore, btnPubblica);
         this.getChildren().add(card);
     }
 

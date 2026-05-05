@@ -20,22 +20,23 @@ public class FileRecensioni {
                 String riga;
                 while ((riga = br.readLine()) != null) {
                     String[] campi = riga.split(";");
-                    if (campi.length >= 4) {
+                    if (campi.length >= 5) {
                         String utente = campi[0].trim();
                         String categoria = campi[1].trim();
                         int stelle = Integer.parseInt(campi[2].trim());
-                        String commento = campi[3].trim();
+                        String indirizzo = campi[3].trim();
+                        String commento = campi[4].trim();
 
                         List<String> frasi = new ArrayList<>();
-                        if (campi.length >= 5) {
+                        if (campi.length >= 6) {
                             //Separa le frasi ironiche salvate con | e le trasforma in una lista
-                            String[] frasiArray = campi[4].split("\\|");
+                            String[] frasiArray = campi[5].split("\\|");
                             for (int i = 0; i < frasiArray.length; i++){
                                 frasi.add(frasiArray[i]);
                             }
                         }
 
-                        Recensione tmp = new Recensione(utente, categoria, stelle, commento, frasi);
+                        Recensione tmp = new Recensione(utente, categoria, stelle, indirizzo, commento, frasi);
                         recensioni.add(tmp);
                     }
                 }
@@ -72,6 +73,7 @@ public class FileRecensioni {
         //Rimuove direttamente la recensione corrispondente iterando la lista
         recensioniAttuali.removeIf(r ->
                 r.getUtente().equals(daEliminare.getUtente()) &&
+                        r.getIndirizzo().equals(daEliminare.getIndirizzo()) &&
                         r.getCategoria().equals(daEliminare.getCategoria()) &&
                         r.getCommento().equals(daEliminare.getCommento())
         );

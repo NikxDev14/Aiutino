@@ -171,11 +171,16 @@ public class HomeFrame extends StackPane {
         Label categoria = new Label(r.getCategoria());
         categoria.getStyleClass().add("categoria");
 
+        Text indirizzo = new Text(r.getIndirizzo());
+        indirizzo.setStyle("-fx-text-fill: red; -fx-fill: red;");
+        indirizzo.getStyleClass().add("indirizzo");
+        indirizzo.setWrappingWidth(320);
+
         Text commento = new Text(r.getCommento());
         commento.getStyleClass().add("commento");
         commento.setWrappingWidth(320);
 
-        card.getChildren().addAll(autore, stelle, categoria, commento);
+        card.getChildren().addAll(autore, stelle, categoria,indirizzo, commento);
 
         //Cliccando mostra tutti i dettagli della recensione
         card.setOnMouseClicked(e -> mostraDettaglioRecensione(r));
@@ -211,6 +216,12 @@ public class HomeFrame extends StackPane {
         Label categoria = new Label(r.getCategoria());
         categoria.getStyleClass().add("categoria-dettaglio");
 
+        Label lblIndirizzo = new Label("Indirizzo:");
+        lblIndirizzo.setStyle("-fx-font-weight: bold;");
+        Text indirizzo = new Text(r.getIndirizzo());
+        indirizzo.getStyleClass().add("commento-dettaglio");
+        indirizzo.setWrappingWidth(320);
+
         Label lblCommento = new Label("Commento:");
         lblCommento.setStyle("-fx-font-weight: bold;");
         Text commento = new Text(r.getCommento());
@@ -230,7 +241,7 @@ public class HomeFrame extends StackPane {
             boxFrasi.getChildren().add(f);
         }
 
-        dettaglio.getChildren().addAll(chiudi, titolo, autore,  stelle, categoria, boxFrasi, lblCommento, commento);
+        dettaglio.getChildren().addAll(chiudi, titolo, autore,  stelle,lblIndirizzo, indirizzo, categoria, boxFrasi, lblCommento, commento);
         overlay.getChildren().add(dettaglio);
 
         //Aggiunge l'overlay sopra a tutto

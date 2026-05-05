@@ -65,7 +65,7 @@ public class Auth {
 
     public static String generaOtp(){
         int numero = (int)(Math.random() * 1000000);
-        String otp = String.format("%06d", numero);
+        String otp = String.format("%06d", numero); //Da un formato al numero (6 cifre in decimale)
         return otp;
     }
     public static boolean verificaOtp(String otp, String otpInserita){

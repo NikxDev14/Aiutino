@@ -35,7 +35,7 @@ public class ProfiloFrame extends StackPane {
 
         Button btnBack = new Button("< Torna alla Home");
         btnBack.getStyleClass().add("btnAltro");
-        btnBack.setStyle("-fx-text-fill: white; -fx-border-color: white;");
+        btnBack.setStyle("-fx-text-fill: red; -fx-border-color: red; -fx-border-radius: 10px;");
         btnBack.setOnAction(e -> this.getScene().setRoot(new HomeFrame()));
 
         Region spazio = new Region(); //Componente grafico vuoto che occupa spazio
@@ -43,7 +43,7 @@ public class ProfiloFrame extends StackPane {
 
         Button btnLogout = new Button("Log out");
         btnLogout.getStyleClass().add("btnAltro");
-        btnLogout.setStyle("-fx-text-fill: red; -fx-border-color: red;");
+        btnLogout.setStyle("-fx-text-fill: red; -fx-border-color: red; -fx-border-radius: 10px;");
         btnLogout.setOnAction(e -> {
             Sessione.logout();
             this.getScene().setRoot(new HomeFrame());
@@ -108,6 +108,11 @@ public class ProfiloFrame extends StackPane {
         Label cat = new Label(r.getCategoria());
         cat.getStyleClass().add("categoria");
 
+        Text indirizzo = new Text(r.getIndirizzo());
+        indirizzo.setStyle("-fx-text-fill: red; -fx-fill: red;");
+        indirizzo.getStyleClass().add("indirizzo");
+        indirizzo.setWrappingWidth(320);
+
         Text commento = new Text(r.getCommento());
         commento.getStyleClass().add("commento");
         commento.setWrappingWidth(500);
@@ -118,7 +123,7 @@ public class ProfiloFrame extends StackPane {
             FileRecensioni.eliminaRecensione(r);
             layoutPrincipale.setCenter(creaBodyProfilo());
         });
-        card.getChildren().addAll(stelle, cat, commento, btnElimina);
+        card.getChildren().addAll(stelle, cat, indirizzo, commento, btnElimina);
 
         //Cliccando mostra tutti i dettagli della recensione
         card.setOnMouseClicked(e -> mostraDettaglioRecensione(r));
@@ -150,6 +155,12 @@ public class ProfiloFrame extends StackPane {
         Label categoria = new Label(r.getCategoria());
         categoria.getStyleClass().add("categoria-dettaglio");
 
+        Label lblIndirizzo = new Label("Indirizzo:");
+        lblIndirizzo.setStyle("-fx-font-weight: bold;");
+        Text indirizzo = new Text(r.getIndirizzo());
+        indirizzo.getStyleClass().add("commento-dettaglio");
+        indirizzo.setWrappingWidth(320);
+
         Label lblCommento = new Label("Commento:");
         lblCommento.setStyle("-fx-font-weight: bold;");
         Text commento = new Text(r.getCommento());
@@ -169,7 +180,7 @@ public class ProfiloFrame extends StackPane {
             boxFrasi.getChildren().add(f);
         }
 
-        dettaglio.getChildren().addAll(chiudi, titolo, stelle, categoria, boxFrasi, lblCommento, commento);
+        dettaglio.getChildren().addAll(chiudi, titolo, stelle, categoria, boxFrasi, lblIndirizzo, indirizzo, lblCommento, commento);
         overlay.getChildren().add(dettaglio);
 
         //Aggiunge l'overlay sopra a tutto

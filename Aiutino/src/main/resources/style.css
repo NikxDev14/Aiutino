@@ -187,6 +187,12 @@
     -fx-text-fill: #FFD700;
     -fx-font-size: 22px;
 }
+.indirizzo{
+    -fx-opacity: 0.5;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-color: rgba(255, 255,0, 0.5);
+}
 .commento{
     -fx-font-size: 14px;
     -fx-font-color: grey;
@@ -276,4 +282,15 @@
 .btnElimina:hover {
     -fx-background-color: #ff6b81;
     -fx-effect: dropshadow(three-pass-box, rgba(255, 71, 87, 0.4), 10, 0, 0, 0);
+}
+/* Barra overlay ai */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-pane .thumb {
+    -fx-background-color: #4a90e2;
+    -fx-background-radius: 10;
 }
