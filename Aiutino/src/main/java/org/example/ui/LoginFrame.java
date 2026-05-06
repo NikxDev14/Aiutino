@@ -93,6 +93,7 @@ public class LoginFrame extends StackPane {
                 messaggioErrore.setManaged(false);
 
                 Sessione.login(auth.fornisciUtente()); //Autentica utente
+                auth.sendMailAutenticazione(auth.fornisciUtente().getEmail());
                 this.getScene().setRoot(new HomeFrame()); //Cambia scena
             }
         });

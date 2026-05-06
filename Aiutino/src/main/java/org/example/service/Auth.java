@@ -3,6 +3,8 @@ package org.example.service;
 import org.example.model.Utente;
 
 import javax.swing.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Auth {
@@ -14,6 +16,7 @@ public class Auth {
         if (registrazione){
             if (email.isEmpty() || username.isEmpty() || password.isEmpty()){
                 return 3;
+
             }
             for (Utente u : utenti){
                 if (username.equals(u.getUsername())){
@@ -81,7 +84,24 @@ public class Auth {
         }
         //Usiamo funzione di libreria presente in EmailSender
         try{
-            EmailSender.send(email, otp);
+            EmailSender.send(email, otp, true);
+            System.out.println("Email inviata!");
+        }catch (Exception e){
+            System.out.println("Errore invio email!");
+        }
+    }
+
+    public void sendMailAutenticazione(String email) {
+        String messaggio = "Caro " + Sessione.getUtente().getUsername() + ", è stato eseguito un nuovo accesso al tuo account su Aiutino alle ore: " + LocalTime.now() + " del giorno " + LocalDate.now();
+        //Caricare file .env
+        try{
+            EnvLoader.load();
+        }catch (Exception e){
+            System.out.println("ERRORE LETTURA .ENV");
+        }
+        //Usiamo funzione di libreria presente in EmailSender
+        try{
+            EmailSender.send(email, messaggio, false);
             System.out.println("Email inviata!");
         }catch (Exception e){
             System.out.println("Errore invio email!");

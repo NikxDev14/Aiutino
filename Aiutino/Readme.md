@@ -1,0 +1,7 @@
+Grazie per aver scaricato Aiutino!
+-
+Come si configura l'applicazione per poter usufruire di tutte le sue funzioni (email, accesso con google, AI)?
+
+1. Per usufruire dell'invio delle email per il codice Otp e la notifica di accesso, bisogna andare su https://myaccount.google.com/apppasswords e creare una nuova password per le app, successivamente copia il codice e incollalo nel file .env nella sezione corretta. Ricordati di inserire anche la sua email nel file.
+2. Per poter usare la AI, bisogna creare un' API KEY al link https://aistudio.google.com/api-keys e successivamente incollare la chiave nel file .env nella relativa sezione.
+3. Per sbloccare l'accesso con google, bisogna andare su https://console.cloud.google.com/ e creare un nuovo progetto, poi andare sul menù di navigazione a sinistra, cliccare su "API e servizi" e successivamente "Schermata di consenso OAuth" e terminare la creazione del progetto inserendo le informazioni, ricordandosi di selezionare User Type esterno. Una volta fatto ciò bisogna andare sul menù di navigazione a sinistra, cliccare su "API e servizi" e successivamente "Credenziali", selezionare "ID Client OAuth" su "Crea credenziali" in alto e selezionare "Applicazione desktop" all'interno dell'overlay che esce. Come ultimo passaggio, scaricare file json e metterlo nella cartella "resources".

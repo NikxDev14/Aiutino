@@ -7,7 +7,7 @@ import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class EmailSender {
-    public static void send(String to, String text) throws Exception {
+    public static void send(String to, String text, boolean otp) throws Exception {
 
         String host = EnvLoader.getEnv("SMTP_HOST");
         String port = EnvLoader.getEnv("SMTP_PORT");
@@ -32,8 +32,15 @@ public class EmailSender {
         message.setFrom(new InternetAddress(user, fromName));
         message.setRecipients(Message.RecipientType.TO,
                 InternetAddress.parse(to));
-        message.setSubject("OTP per Aiutino");
-        message.setText("Ecco a lei il codice da usare per completare la registrazione del suo account: " + text);
+        if (otp){
+            message.setSubject("OTP per Aiutino");
+            message.setText("Ecco a lei il codice da usare per completare la registrazione del suo account: " + text);
+        }
+        else {
+            message.setSubject("Nuovo accesso su Aiutino");
+            message.setText(text);
+        }
+
 
         Transport.send(message);
     }
